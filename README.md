@@ -8,7 +8,7 @@
 
 #### For a better experience, an <a target="_blank" href="https://datamall.lta.gov.sg/content/datamall/en/request-for-api.html">account key</a> from LTA's DataMall is advised. 
 
-## Parameters
+## Endpoints
 ```
 /traffic-incidents
 /bus-stops
