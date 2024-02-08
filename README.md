@@ -2,11 +2,11 @@
 ### An open-sourced server in express.js, developed by SGMYCAM, to make request and query to government of Singapore's LTA DataMall. 
 
 ## Usage
-#### Host the server files at Vercel or a hosting provider that supports Express.js hosting and CORS (Cross-Origin-Resources-Sharing). Request through a specific parameter to get a specific dataset. 
+Host the server files at Vercel or a hosting provider that supports Express.js hosting and CORS (Cross-Origin-Resources-Sharing). Request through a specific parameter to get a specific dataset. 
 
-#### Besides Express.js, the server also uses Axios and CORS for requesting traffic data. 
+Besides Express.js, the server also uses Axios and CORS for requesting traffic data. 
 
-#### For a better experience, an <a target="_blank" href="https://datamall.lta.gov.sg/content/datamall/en/request-for-api.html">account key</a> from LTA's DataMall is advised. 
+For a better experience, an <a target="_blank" href="https://datamall.lta.gov.sg/content/datamall/en/request-for-api.html">account key</a> from LTA's DataMall is advised. 
 
 ## Endpoints
 ```
@@ -22,9 +22,14 @@
 /pcd/(id)
 ```
 
-## Reminder
-#### 1. In some specific parameter, (id) is for the a specific value, such as a bus code or a train service route. For example, in "bus-arrival", (id) such as bus code "83139" is used to query a specific bus arrival timetable. In the other-hand, (id) in "pcd" is for train routes such as "NSL", "NEL", etc. 
+## Open resources out from LTA Singapore used
+Starting from 8/2/2024, the request link for the bus-stops codes will be replaced to the following source: <a target="_blank" href="https://data.busrouter.sg/v1/stops.json">https://data.busrouter.sg/v1/stops.json</a>
 
-#### 2. All traffic data are from DataMall LTA Singapore.  
+The resource is from the following GitHub Project: <a target="_blank" href="https://github.com/cheeaun/arrivelah">arrivelah</a> .
+
+## Reminder
+1. In some specific parameter, (id) is for the a specific value, such as a bus code or a train service route. For example, in "bus-arrival", (id) such as bus code "83139" is used to query a specific bus arrival timetable. In the other-hand, (id) in "pcd" is for train routes such as "NSL", "NEL", etc. 
+
+2. All traffic data are from DataMall LTA Singapore.  
 
 ##### Developed by THATSEANDEV in 2023. 
