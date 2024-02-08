@@ -33,28 +33,19 @@ app.get('/traffic-incidents', (req, res) => {
       });
   });
 
-  app.get('/bus-stops', (req, res) => {
-    let config = {
-      method: 'get',
-      maxBodyLength: Infinity,
-      url: 'http://datamall2.mytransport.sg/ltaodataservice/BusStops',
-      headers: { 
-        'AccountKey': 'WOgYmxBITSyC93o7cs4BaA==', 
-        'accept': 'application/json'
-      },
-      maxRedirects: 0
-    };
-    
-    axios.request(config)
-      .then((response) => {
-        let data = JSON.stringify(response.data);
-        res.setHeader('Content-Type', 'application/json');
-        res.send(data);
-      })
-      .catch((error) => {
-        console.error(error);
-        res.status(500).send('Bus-Stops: An error occurred while fetching data.');
-      });
+  app.get('/bus-stops', async (req, res) => {
+    try {
+      const response = await axios.get('https://data.busrouter.sg/v1/stops.json');
+      const data = response.data;
+      let list = [];
+      for (let key in data) {
+        list.push(data[key]);
+      }
+      res.send(list);
+    } catch (error) {
+      console.error('Error:', error);
+      res.status(500).send(error);
+    }
   });
 
   app.get('/bus-services', (req, res) => {
