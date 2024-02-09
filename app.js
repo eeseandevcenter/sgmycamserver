@@ -35,19 +35,19 @@ app.get('/traffic-incidents', (req, res) => {
 
   app.get('/bus-stops', async (req, res) => {
     try {
-      const response = await axios.get('https://data.busrouter.sg/v1/stops.json');
-      const data = response.data;
-      let list = [];
-      for (let key in data) {
-        let dataPush = {
-          "lat": data[key][0],
-          "lon": data[key][1],
-          "name": data[key][2],
-          "road": data[key][3],
+      try {
+        const response = await axios.get('https://data.busrouter.sg/v1/stops.min.json');
+        const data = response.data;
+        let list = [];
+        for (let code in data) {
+          const [lat, long, name, road] = data[code];
+          list.push({code, lat, long, name, road});
         }
-        list.push(dataPush);
+        res.send(list);
+      } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send(error);
       }
-      res.send(list);
     } catch (error) {
       console.error('Error:', error);
       res.status(500).send(error);
