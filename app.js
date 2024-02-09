@@ -39,7 +39,13 @@ app.get('/traffic-incidents', (req, res) => {
       const data = response.data;
       let list = [];
       for (let key in data) {
-        list.push(data[key]);
+        let dataPush = {
+          "lat": data[key][0],
+          "lon": data[key][1],
+          "name": data[key][2],
+          "road": data[key][3],
+        }
+        list.push(dataPush);
       }
       res.send(list);
     } catch (error) {
