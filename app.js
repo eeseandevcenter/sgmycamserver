@@ -48,6 +48,51 @@ app.get('/traffic-incidents', (req, res) => {
     }
   });
 
+  app.get('/bus-stop/near', async( req, res) => {
+    try {
+      const response = await axios.get('https://data.busrouter.sg/v1/stops.json');
+      const data = response.data;
+      let list = [];
+      let lat = res.headers.coordinates.lat
+      let lon = res.headers.coordinates.lon
+      let range = res.headers.range
+      function calculateDistance(lat1, lon1, lat2, lon2) {
+        const R = 6371;
+        const dLat = deg2rad(lat2 - lat1);
+        const dLon = deg2rad(lon2 - lon1);
+        const a = 
+          Math.sin(dLat/2) * Math.sin(dLat/2) +
+          Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+          Math.sin(dLon/2) * Math.sin(dLon/2)
+          ; 
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        const distance = R * c;
+        return distance;
+      }
+      
+      function deg2rad(deg) {
+        return deg * (Math.PI/180)
+      }
+      for (let key in data) {
+        let distance = calculateDistance(lat, lon, data[key][0], data[key][1]);
+        if (distance < range && range > 0) {
+          let dataPush = {
+            "lat": data[key][0],
+            "lon": data[key][1],
+            "name": data[key][2],
+            "road": data[key][3],
+          }
+          list.push(dataPush);
+        }
+      }
+
+      res.send(list);
+    } catch (error) {
+      console.error('Error:', error);
+      res.status(500).send(error);
+    }
+  })
+
   app.get('/bus-services', (req, res) => {
     let config = {
       method: 'get',
