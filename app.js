@@ -10,10 +10,11 @@ app.get('/', (req, res) => {
 })
 
 app.get('/traffic-incidents', (req, res) => {
+    let requireDataValue = req.headers.skip
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: 'http://datamall2.mytransport.sg/ltaodataservice/TrafficIncidents',
+      url: 'http://datamall2.mytransport.sg/ltaodataservice/TrafficIncidents?$skip='+ requireDataValue,
       headers: { 
         'AccountKey': 'WOgYmxBITSyC93o7cs4BaA==', 
         'accept': 'application/json'
@@ -40,8 +41,8 @@ app.get('/traffic-incidents', (req, res) => {
         const data = response.data;
         let list = [];
         for (let code in data) {
-          const [long, lat, name, road] = data[code];
-          list.push({code, long, lat, name, road});
+          const [lon, lat, name, road] = data[code];
+          list.push({code, lon, lat, name, road});
         }
         res.send(list);
       } catch (error) {
@@ -54,11 +55,38 @@ app.get('/traffic-incidents', (req, res) => {
     }
   });
 
-  app.get('/bus-services', (req, res) => {
+  app.get('/nearby-carparks', (req, res) => {
+    let requireDataValue = req.headers.skip
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: 'http://datamall2.mytransport.sg/ltaodataservice/BusServices',
+      url: 'http://datamall2.mytransport.sg/ltaodataservice/CarParkAvailabilityv2?$skip=' + requireDataValue,
+      headers: { 
+        'AccountKey': 'WOgYmxBITSyC93o7cs4BaA==', 
+        'accept': 'application/json'
+      },
+      maxRedirects: 0
+    };
+    
+    axios.request(config)
+      .then((response) => {
+        let data = JSON.stringify(response.data);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(data);
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send('Nearby-Carparks: An error occurred while fetching data.');
+      });
+  
+  })
+
+  app.get('/bus-services', (req, res) => {
+    let requireDataValue = req.headers.skip
+    let config = {
+      method: 'get',
+      maxBodyLength: Infinity,
+      url: 'http://datamall2.mytransport.sg/ltaodataservice/BusServices?$skip=' + requireDataValue,
       headers: { 
         'AccountKey': 'WOgYmxBITSyC93o7cs4BaA==', 
         'accept': 'application/json'
@@ -79,10 +107,11 @@ app.get('/traffic-incidents', (req, res) => {
   });
 
   app.get('/bus-routes', (req, res) => {
+    let requireDataValue = req.headers.skip
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: 'http://datamall2.mytransport.sg/ltaodataservice/BusRoutes',
+      url: 'http://datamall2.mytransport.sg/ltaodataservice/BusRoutes?$skip=' + requireDataValue,
       headers: { 
         'AccountKey': 'WOgYmxBITSyC93o7cs4BaA==', 
         'accept': 'application/json'
@@ -103,10 +132,11 @@ app.get('/traffic-incidents', (req, res) => {
   });
 
   app.get('/carpark-availability', (req, res) => {
+    let requireDataValue = req.headers.skip
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: 'http://datamall2.mytransport.sg/ltaodataservice/CarParkAvailabilityv2',
+      url: 'http://datamall2.mytransport.sg/ltaodataservice/CarParkAvailabilityv2?$skip=' + requireDataValue,
       headers: { 
         'AccountKey': 'WOgYmxBITSyC93o7cs4BaA==', 
         'accept': 'application/json'
@@ -127,10 +157,11 @@ app.get('/traffic-incidents', (req, res) => {
   });
 
   app.get('/erp-rates', (req, res) => {
+    let requireDataValue = req.headers.skip
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: 'http://datamall2.mytransport.sg/ltaodataservice/ERPRates',
+      url: 'http://datamall2.mytransport.sg/ltaodataservice/ERPRates?$skip=' + requireDataValue,
       headers: { 
         'AccountKey': 'WOgYmxBITSyC93o7cs4BaA==', 
         'accept': 'application/json'
@@ -151,10 +182,11 @@ app.get('/traffic-incidents', (req, res) => {
   });
 
   app.get('/est-travel-times', (req, res) => {
+    let requireDataValue = req.headers.skip
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: 'http://datamall2.mytransport.sg/ltaodataservice/EstTravelTimes',
+      url: 'http://datamall2.mytransport.sg/ltaodataservice/EstTravelTimes?$skip=' + requireDataValue,
       headers: { 
         'AccountKey': 'WOgYmxBITSyC93o7cs4BaA==', 
         'accept': 'application/json'
@@ -175,10 +207,11 @@ app.get('/traffic-incidents', (req, res) => {
   });
   
   app.get('/train-service-alerts', (req, res) => {
+    let requireDataValue = req.headers.skip
     let config = {
       method: 'get',
       maxBodyLength: Infinity,
-      url: 'http://datamall2.mytransport.sg/ltaodataservice/TrainServiceAlerts',
+      url: 'http://datamall2.mytransport.sg/ltaodataservice/TrainServiceAlerts?$skip=' + requireDataValue,
       headers: { 
         'AccountKey': 'WOgYmxBITSyC93o7cs4BaA==', 
         'accept': 'application/json'
@@ -259,5 +292,5 @@ app.get('/traffic-incidents', (req, res) => {
   });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Example app listening on port ${port}, started at ${new Date().toISOString()}`)
 })
