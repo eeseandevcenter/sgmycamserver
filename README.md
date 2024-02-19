@@ -1,5 +1,5 @@
 # SGMYCAM Server
-### An open-sourced server in express.js, developed by SGMYCAM, to make request and query to government of Singapore's LTA DataMall. 
+### An open-sourced server in express.js, developed for SGMYCAM, to make request and query to government of Singapore's LTA DataMall. 
 
 ## Usage
 Host the server files at Vercel or a hosting provider that supports Express.js hosting and CORS (Cross-Origin-Resources-Sharing). Request through a specific parameter to get a specific dataset. 
@@ -24,6 +24,9 @@ For a better experience, an <a target="_blank" href="https://datamall.lta.gov.sg
 
 ## Open resources out from LTA Singapore used
 Starting from 8/2/2024, the request link for the bus-stops codes will be replaced to the following source: <a target="_blank" href="https://data.busrouter.sg/v1/stops.json">https://data.busrouter.sg/v1/stops.json</a>
+
+## Skip function updated
+Starting from 19/2/2024, all request for the endpoints except /bus-stops can have a skip header included to retireve more data. Through this, 500 data per-request can be ignored. Read the DataMall PDF Document(Page 7) from LTA to get more informations. 
 
 The resource is from the following GitHub Project: <a target="_blank" href="https://github.com/cheeaun/arrivelah">arrivelah</a> .
 
