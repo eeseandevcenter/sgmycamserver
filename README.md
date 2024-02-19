@@ -1,5 +1,5 @@
 # SGMYCAM Server
-### An open-sourced server in express.js, developed for SGMYCAM, to make request and query to government of Singapore's LTA DataMall. 
+### An open-sourced server in express.js, developed for SGMYCAM, to make request and query to government of Singapore's LTA DataMall and other related open-source databases. 
 
 ## Usage
 Host the server files at Vercel or a hosting provider that supports Express.js hosting and CORS (Cross-Origin-Resources-Sharing). Request through a specific parameter to get a specific dataset. 
@@ -33,6 +33,6 @@ Starting from 19/2/2024, all request for the endpoints except /bus-stops can hav
 ## Reminder
 1. In some specific parameter, (id) is for the a specific value, such as a bus code or a train service route. For example, in "bus-arrival", (id) such as bus code "83139" is used to query a specific bus arrival timetable. In the other-hand, (id) in "pcd" is for train routes such as "NSL", "NEL", etc. 
 
-2. All traffic data are from DataMall LTA Singapore.  
+2. All traffic data are from LTA Singapore.  
 
 ##### Developed by THATSEANDEV in 2023. 
